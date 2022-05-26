@@ -62,7 +62,7 @@ class ProductsController extends Controller
         $path = $request->file('img')
             ->store('media/images/uploads', 'public');
 
-        $fullpathtoimg = env('APP_DOMAIN_STORAGE') . $path;
+        $fullpathtoimg = 'storage/' . $path;
 
         $products = new Products();
         $products->title = $request->title;
@@ -125,7 +125,7 @@ class ProductsController extends Controller
         $path = $request->file('img')
             ->store('media/images/uploads', 'public');
 
-        $fullpathtoimg = env('APP_DOMAIN_STORAGE') . $path;
+        $fullpathtoimg = 'storage/'. $path;
 
         $products = Products::find($request->id);
         $products->title = $request->title;
