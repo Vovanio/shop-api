@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,7 @@ Route::middleware('auth.check:api')->group(function (){
 });
 
 Route::post('admin/login', 'App\Http\Controllers\AuthController@Login');
+
 
 
 

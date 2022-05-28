@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Products;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProductsController extends Controller
@@ -59,16 +61,19 @@ class ProductsController extends Controller
             ], 422);
         }
 
-        $path = $request->file('img')
-            ->store('media/images/uploads', 'public');
+//        $path = Storage::disk('google')->put('test.txt', 'hello world');
 
-        $fullpathtoimg = 'storage/' . $path;
+        $path = $request->img
+            ->store('', 'google');
+
+        $imgsource = Storage::disk('google')
+            ->url($path);
 
         $products = new Products();
         $products->title = $request->title;
         $products->description = $request->description;
         $products->price = $request->price;
-        $products->img_src = $fullpathtoimg;
+        $products->img_src = $imgsource;
         $products->save();
 
         return response()->json([], 204);
@@ -123,15 +128,16 @@ class ProductsController extends Controller
         }
 
         $path = $request->file('img')
-            ->store('media/images/uploads', 'public');
+            ->store('', 'google');
 
-        $fullpathtoimg = 'storage/'. $path;
+        $imgsource = Storage::disk('google')
+            ->url($path);
 
         $products = Products::find($request->id);
         $products->title = $request->title;
         $products->description = $request->description;
         $products->price = $request->price;
-        $products->img_src = $fullpathtoimg;
+        $products->img_src = $imgsource;
 
         return response()->json([], 204);
     }
